@@ -32,13 +32,23 @@ export class LabelThreemodelComponent {
 
   readonly pi = Math.PI;
 
-  ok(array: number[], index: number) {
+  ok(array: number[], index: number, opt = 0) {
     const height = this.config.rowHeight * this.config.rowCount;
     const bottomLine = -((this.config.rowHeight * this.config.rowCount) / 2);
     const rowGap = height / (array.length + 1);
     if (rowGap < 1) {
       return alert('rowGap is too smoll');
     }
-    return bottomLine + rowGap + rowGap * index;
+    return bottomLine + rowGap + rowGap * index + opt;
+  }
+
+  calculateColumnItemInterval(array: number[], index: number) {
+    const width = this.config.columnWidth * this.config.columnCount;
+    const leftLine = -((this.config.columnWidth * this.config.columnCount) / 2);
+    const columnGap = width / (array.length + 1);
+    if (columnGap < 0.2) {
+      return alert('columnGap is too smoll');
+    }
+    return leftLine + columnGap + columnGap * index;
   }
 }
