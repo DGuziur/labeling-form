@@ -32,7 +32,7 @@
 @for(box of [0, 1, 2, 3, 4, 5]; track $index) {
 
 <ngt-mesh
-  [position]="[0, -((config.rowHeight * config.rowCount) / 2) + box + 1, 0]"
+  [position]="[0, ok([0, 1, 2, 3, 4, 5], $index), 0]"
   [scale]="[0.5, config.columnWidth * config.columnCount, 0.2]"
   [rotation]="[0, 0, pi / 2]"
 >

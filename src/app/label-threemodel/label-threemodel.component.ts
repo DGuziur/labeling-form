@@ -31,4 +31,14 @@ export class LabelThreemodelComponent {
   };
 
   readonly pi = Math.PI;
+
+  ok(array: number[], index: number) {
+    const height = this.config.rowHeight * this.config.rowCount;
+    const bottomLine = -((this.config.rowHeight * this.config.rowCount) / 2);
+    const rowGap = height / (array.length + 1);
+    if (rowGap < 1) {
+      return alert('rowGap is too smoll');
+    }
+    return bottomLine + rowGap + rowGap * index;
+  }
 }
