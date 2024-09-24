@@ -26,6 +26,7 @@
   [rotation]="[0, 0, pi / 2]"
 >
   <ngt-box-geometry />
+
   <ngt-mesh-basic-material color="red" />
 </ngt-mesh>
 
@@ -49,7 +50,10 @@
   [scale]="[0.5, 1, 0.1]"
 >
   <ngt-box-geometry />
-  <ngt-mesh-basic-material color="green" />
+  <ngt-mesh-basic-material
+    color="green"
+    [map]="generateTextTexture('hahaha')"
+  />
 </ngt-mesh>
 } }
 

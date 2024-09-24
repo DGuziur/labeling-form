@@ -51,4 +51,19 @@ export class LabelThreemodelComponent {
     }
     return leftLine + columnGap + columnGap * index;
   }
+
+  generateTextTexture(text: string): THREE.Texture {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d')!;
+    canvas.width = 256;
+    canvas.height = 256;
+
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.font = '48px Arial';
+    context.fillStyle = 'black';
+    context.fillText(text, 50, 60);
+
+    return new THREE.CanvasTexture(canvas);
+  }
 }
