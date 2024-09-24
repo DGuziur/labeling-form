@@ -1,0 +1,48 @@
+<ngt-mesh
+  [position]="[-((config.columnWidth * config.columnCount) / 2), 0, 0]"
+  [scale]="[0.5, config.rowHeight * config.rowCount, 0.2]"
+>
+  <ngt-box-geometry outerText="haha" />
+  <ngt-mesh-basic-material color="red" />
+</ngt-mesh>
+<ngt-mesh
+  [position]="[(config.columnWidth * config.columnCount) / 2, 0, 0]"
+  [scale]="[0.5, config.rowHeight * config.rowCount, 0.2]"
+>
+  <ngt-box-geometry />
+  <ngt-mesh-basic-material color="red" />
+</ngt-mesh>
+<ngt-mesh
+  [position]="[0, (config.rowHeight * config.rowCount) / 2, 0]"
+  [scale]="[0.5, config.columnWidth * config.columnCount, 0.2]"
+  [rotation]="[0, 0, pi / 2]"
+>
+  <ngt-box-geometry />
+  <ngt-mesh-basic-material color="red" />
+</ngt-mesh>
+<ngt-mesh
+  [position]="[0, -((config.rowHeight * config.rowCount) / 2), 0]"
+  [scale]="[0.5, config.columnWidth * config.columnCount, 0.2]"
+  [rotation]="[0, 0, pi / 2]"
+>
+  <ngt-box-geometry />
+  <ngt-mesh-basic-material color="red" />
+</ngt-mesh>
+
+@for(box of [0, 1, 2, 3, 4, 5]; track $index) {
+
+<ngt-mesh
+  [position]="[0, -((config.rowHeight * config.rowCount) / 2) + box + 1, 0]"
+  [scale]="[0.5, config.columnWidth * config.columnCount, 0.2]"
+  [rotation]="[0, 0, pi / 2]"
+>
+  <ngt-box-geometry />
+  <ngt-mesh-basic-material color="blue" />
+</ngt-mesh>
+}
+
+<ngt-orbit-controls
+  *args="[camera, glDom]"
+  [enableDamping]="true"
+  (beforeRender)="$any($event).object.update()"
+/>
