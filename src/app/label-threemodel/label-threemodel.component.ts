@@ -52,7 +52,10 @@ export class LabelThreemodelComponent {
     return leftLine + columnGap + columnGap * index;
   }
 
-  generateTextTexture(text: string): THREE.Texture {
+  generateTextTexture(
+    text: string,
+    isVertical: boolean = false
+  ): THREE.Texture {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d')!;
     canvas.width = 256;
@@ -60,9 +63,16 @@ export class LabelThreemodelComponent {
 
     context.fillStyle = 'white';
     context.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (isVertical) {
+      context.translate(canvas.width / 2, canvas.height / 2);
+      context.rotate(-Math.PI / 2);
+      context.translate(-canvas.height / 2, -canvas.width / 2);
+    }
+
     context.font = '48px Arial';
     context.fillStyle = 'black';
-    context.fillText(text, 50, 60);
+    context.fillText(text, 0, 60);
 
     return new THREE.CanvasTexture(canvas);
   }
