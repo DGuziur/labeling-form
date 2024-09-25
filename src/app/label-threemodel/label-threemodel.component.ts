@@ -28,6 +28,7 @@ export class LabelThreemodelComponent {
     columnCount: 6,
     columnWidth: 1,
     margin: 0.1,
+    marginRow: 1,
   };
 
   readonly pi = Math.PI;
@@ -36,7 +37,7 @@ export class LabelThreemodelComponent {
     const height = this.config.rowHeight * this.config.rowCount;
     const bottomLine = -((this.config.rowHeight * this.config.rowCount) / 2);
     const rowGap = height / (array.length + 1);
-    if (rowGap < 1) {
+    if (rowGap < this.config.marginRow) {
       return alert('rowGap is too smoll');
     }
     return bottomLine + rowGap + rowGap * index + opt;
@@ -46,7 +47,7 @@ export class LabelThreemodelComponent {
     const width = this.config.columnWidth * this.config.columnCount;
     const leftLine = -((this.config.columnWidth * this.config.columnCount) / 2);
     const columnGap = width / (array.length + 1);
-    if (columnGap < 0.2) {
+    if (columnGap < this.config.margin) {
       return alert('columnGap is too smoll');
     }
     return leftLine + columnGap + columnGap * index;
