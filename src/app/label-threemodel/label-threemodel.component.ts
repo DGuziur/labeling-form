@@ -35,6 +35,7 @@ export class LabelThreemodelComponent {
     columnWidth: 1,
     margin: 0.1,
     marginRow: 1,
+    displayedText: 'SDA@AD',
   };
 
   readonly rowArray = new Array(this.config.rowElementsCount).fill(0);
@@ -45,7 +46,6 @@ export class LabelThreemodelComponent {
     const height = this.config.rowHeight * this.config.rowCount;
     const bottomLine = -((this.config.rowHeight * this.config.rowCount) / 2);
     const rowGap = height / (array.length + 1);
-    console.log(this.rowArray);
     if (rowGap < this.config.marginRow) {
       throw alert('rowGap is too smoll');
     }
@@ -82,7 +82,7 @@ export class LabelThreemodelComponent {
 
     context.font = '48px Arial';
     context.fillStyle = 'black';
-    context.fillText(text, 0, 60);
+    context.fillText(text, 0, canvas.height / 2);
 
     return new THREE.CanvasTexture(canvas);
   }
