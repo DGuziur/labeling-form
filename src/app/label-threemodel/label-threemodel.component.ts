@@ -1,4 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  input,
+} from '@angular/core';
 import { extend } from 'angular-three';
 import { NgtCanvas, NgtArgs } from 'angular-three';
 import { NGT_STORE } from 'angular-three';
@@ -17,12 +22,13 @@ extend({ OrbitControls });
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LabelThreemodelComponent {
+  test = input.required();
   private readonly store = inject(NGT_STORE);
   readonly camera = this.store.get('camera');
   readonly glDom = this.store.get('gl', 'domElement');
 
   config = {
-    rowElementsCount: 3,
+    rowElementsCount: 7,
     rowCount: 3,
     rowHeight: 3,
     columnCount: 6,
@@ -31,14 +37,17 @@ export class LabelThreemodelComponent {
     marginRow: 1,
   };
 
+  readonly rowArray = new Array(this.config.rowElementsCount).fill(0);
+  readonly columnArray = new Array(this.config.rowElementsCount).fill(0);
   readonly pi = Math.PI;
 
   ok(array: number[], index: number, opt = 0) {
     const height = this.config.rowHeight * this.config.rowCount;
     const bottomLine = -((this.config.rowHeight * this.config.rowCount) / 2);
     const rowGap = height / (array.length + 1);
+    console.log(this.rowArray);
     if (rowGap < this.config.marginRow) {
-      return alert('rowGap is too smoll');
+      throw alert('rowGap is too smoll');
     }
     return bottomLine + rowGap + rowGap * index + opt;
   }
