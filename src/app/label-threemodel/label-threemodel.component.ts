@@ -3,6 +3,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   input,
+  model,
 } from '@angular/core';
 import { extend } from 'angular-three';
 import { NgtCanvas, NgtArgs } from 'angular-three';
@@ -22,7 +23,7 @@ extend({ OrbitControls });
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LabelThreemodelComponent {
-  test = input.required();
+  readonly text = model.required<string>();
   private readonly store = inject(NGT_STORE);
   readonly camera = this.store.get('camera');
   readonly glDom = this.store.get('gl', 'domElement');

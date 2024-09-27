@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
+import { Component, ElementRef, model, OnInit, viewChild } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
   styleUrl: './label-form-component.component.scss',
 })
 export class LabelFormComponentComponent implements OnInit {
+  readonly text = model.required<string>();
   canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   form = new FormControl<string>('');
 
@@ -24,6 +25,7 @@ export class LabelFormComponentComponent implements OnInit {
       if (value === null) {
         return;
       }
+      this.text.set(value);
       this.drawText(ctx, value, 'horizontal');
     });
   }

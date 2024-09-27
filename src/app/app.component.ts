@@ -18,5 +18,6 @@ import { LabelFormComponentComponent } from './label-form-component/label-form-c
 })
 export class AppComponent {
   title = 'labeling-form';
+  readonly text = '';
   readonly model = LabelThreemodelComponent;
 }
