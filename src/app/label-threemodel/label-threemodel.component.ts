@@ -10,6 +10,7 @@ import { NgtCanvas, NgtArgs } from 'angular-three';
 import { NGT_STORE } from 'angular-three';
 import { OrbitControls } from 'three-stdlib';
 import * as THREE from 'three';
+import { CanvasService } from '../services/canvas.service';
 
 extend(THREE);
 extend({ OrbitControls });
@@ -23,6 +24,7 @@ extend({ OrbitControls });
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LabelThreemodelComponent {
+  readonly canvasService = inject(CanvasService);
   readonly text = model.required<string>();
   private readonly store = inject(NGT_STORE);
   readonly camera = this.store.get('camera');
@@ -63,28 +65,27 @@ export class LabelThreemodelComponent {
     return leftLine + columnGap + columnGap * index;
   }
 
-  generateTextTexture(
-    text: string,
-    isVertical: boolean = false
-  ): THREE.Texture {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d')!;
-    canvas.width = 256;
-    canvas.height = 256;
+  generateTextTexture(): THREE.Texture {
+    // const canvas = document.createElement('canvas');
+    // const context = canvas.getContext('2d')!;
+    // canvas.width = 256;
+    // canvas.height = 256;
 
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    // context.fillStyle = 'white';
+    // context.fillRect(0, 0, canvas.width, canvas.height);
 
-    if (isVertical) {
-      context.translate(canvas.width / 2, canvas.height / 2);
-      context.rotate(-Math.PI / 2);
-      context.translate(-canvas.height / 2, -canvas.width / 2);
-    }
+    // if (isVertical) {
+    //   context.translate(canvas.width / 2, canvas.height / 2);
+    //   context.rotate(-Math.PI / 2);
+    //   context.translate(-canvas.height / 2, -canvas.width / 2);
+    // }
 
-    context.font = '48px Arial';
-    context.fillStyle = 'black';
-    context.fillText(text, 0, canvas.height / 2);
-
+    // context.font = '48px Arial';
+    // context.fillStyle = 'black';
+    // context.fillText(text, 0, canvas.height / 2);
+    const canvas = this.canvasService.canvasRef();
+    if (!canvas) throw new Error('Canvas is not available');
+    console.log(canvas);
     return new THREE.CanvasTexture(canvas);
   }
 }

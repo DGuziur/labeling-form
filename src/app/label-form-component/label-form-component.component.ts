@@ -1,5 +1,13 @@
-import { Component, ElementRef, model, OnInit, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  model,
+  OnInit,
+  viewChild,
+} from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { CanvasService } from '../services/canvas.service';
 
 @Component({
   selector: 'label-form-component',
@@ -12,12 +20,9 @@ export class LabelFormComponentComponent implements OnInit {
   readonly text = model.required<string>();
   canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   form = new FormControl<string>('');
+  canvasService = inject(CanvasService);
 
   ngOnInit(): void {
-    this.canvas().nativeElement.width = 200;
-    this.canvas().nativeElement.height = 200;
-    this.canvas().nativeElement.style.border = '1px solid black';
-
     const ctx = this.canvas().nativeElement.getContext('2d');
     if (!ctx) throw new Error('Canvas context is not available');
 
@@ -26,7 +31,7 @@ export class LabelFormComponentComponent implements OnInit {
         return;
       }
       this.text.set(value);
-      this.drawText(ctx, value, 'horizontal');
+      this.canvasService.drawText(value, 'horizontal');
     });
   }
 
