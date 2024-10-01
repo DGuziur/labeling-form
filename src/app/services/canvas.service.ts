@@ -7,8 +7,11 @@ import { HTML } from 'angular-three';
 export class CanvasService {
   canvasRef = signal<HTMLCanvasElement>(document.createElement('canvas'));
 
-  drawText(text: string, position: 'horizontal' | 'vertical') {
-    const ctx = this.canvasRef().getContext('2d');
+  drawText(
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    position: 'horizontal' | 'vertical'
+  ) {
     if (!ctx) throw new Error('Canvas context is not available');
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);

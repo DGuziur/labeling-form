@@ -83,9 +83,11 @@ export class LabelThreemodelComponent {
     // context.font = '48px Arial';
     // context.fillStyle = 'black';
     // context.fillText(text, 0, canvas.height / 2);
-    const canvas = this.canvasService.canvasRef();
-    if (!canvas) throw new Error('Canvas is not available');
-    console.log(canvas);
-    return new THREE.CanvasTexture(canvas);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!canvas || !ctx) throw new Error('Canvas is not available');
+    this.canvasService.drawText(ctx, this.config.displayedText, 'horizontal');
+    const threeCanvas = new THREE.CanvasTexture(canvas);
+    return threeCanvas;
   }
 }

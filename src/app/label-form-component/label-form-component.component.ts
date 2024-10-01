@@ -31,7 +31,7 @@ export class LabelFormComponentComponent implements OnInit {
         return;
       }
       this.text.set(value);
-      this.canvasService.drawText(value, 'horizontal');
+      this.canvasService.drawText(ctx, value, 'horizontal');
     });
   }
 
