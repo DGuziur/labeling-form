@@ -40,6 +40,7 @@ export class LabelThreemodelComponent {
     marginRow: 1,
     displayedText: 'SDA@AD',
   };
+  texture: THREE.Texture = this.generateTextTexture();
 
   readonly rowArray = new Array(this.config.rowElementsCount).fill(0);
   readonly columnArray = new Array(this.config.rowElementsCount).fill(0);
@@ -88,6 +89,11 @@ export class LabelThreemodelComponent {
     if (!canvas || !ctx) throw new Error('Canvas is not available');
     this.canvasService.drawText(ctx, this.config.displayedText, 'horizontal');
     const threeCanvas = new THREE.CanvasTexture(canvas);
+    threeCanvas.needsUpdate = true;
+    if (this.texture) {
+      this.texture.dispose();
+      this.texture = threeCanvas;
+    }
     return threeCanvas;
   }
 }
