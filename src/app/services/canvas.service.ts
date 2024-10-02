@@ -1,5 +1,4 @@
-import { ElementRef, Injectable, signal } from '@angular/core';
-import { HTML } from 'angular-three';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',

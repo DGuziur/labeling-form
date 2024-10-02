@@ -67,33 +67,16 @@ export class LabelThreemodelComponent {
   }
 
   generateTextTexture(): THREE.Texture {
-    // const canvas = document.createElement('canvas');
-    // const context = canvas.getContext('2d')!;
-    // canvas.width = 256;
-    // canvas.height = 256;
-
-    // context.fillStyle = 'white';
-    // context.fillRect(0, 0, canvas.width, canvas.height);
-
-    // if (isVertical) {
-    //   context.translate(canvas.width / 2, canvas.height / 2);
-    //   context.rotate(-Math.PI / 2);
-    //   context.translate(-canvas.height / 2, -canvas.width / 2);
-    // }
-
-    // context.font = '48px Arial';
-    // context.fillStyle = 'black';
-    // context.fillText(text, 0, canvas.height / 2);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (!canvas || !ctx) throw new Error('Canvas is not available');
     this.canvasService.drawText(ctx, this.config.displayedText, 'horizontal');
     const threeCanvas = new THREE.CanvasTexture(canvas);
-    threeCanvas.needsUpdate = true;
     if (this.texture) {
       this.texture.dispose();
       this.texture = threeCanvas;
     }
+    threeCanvas.needsUpdate = true;
     return threeCanvas;
   }
 }
