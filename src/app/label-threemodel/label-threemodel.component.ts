@@ -40,7 +40,13 @@ export class LabelThreemodelComponent {
     marginRow: 1,
     displayedText: 'SDA@AD',
   };
-  texture: THREE.Texture = this.generateTextTexture();
+  texture!: THREE.Texture;
+
+  constructor() {
+    this.generateTextTexture().then(
+      (texture: THREE.Texture) => (this.texture = texture)
+    );
+  }
 
   readonly rowArray = new Array(this.config.rowElementsCount).fill(0);
   readonly columnArray = new Array(this.config.rowElementsCount).fill(0);
@@ -66,11 +72,15 @@ export class LabelThreemodelComponent {
     return leftLine + columnGap + columnGap * index;
   }
 
-  generateTextTexture(): THREE.Texture {
+  async generateTextTexture(): Promise<THREE.Texture> {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (!canvas || !ctx) throw new Error('Canvas is not available');
-    this.canvasService.drawText(ctx, this.config.displayedText, 'horizontal');
+    await this.canvasService.drawText(
+      ctx,
+      this.config.displayedText,
+      'horizontal'
+    );
     const threeCanvas = new THREE.CanvasTexture(canvas);
     if (this.texture) {
       this.texture.dispose();

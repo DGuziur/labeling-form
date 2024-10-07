@@ -42,6 +42,7 @@
 </ngt-mesh>
 @for (label of columnArray; track $index) {
 <ngt-mesh
+  (click)="generateTextTexture()"
   [position]="[
     calculateColumnItemInterval(columnArray, $index),
     ok(rowArray, i, 0.5),

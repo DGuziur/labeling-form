@@ -27,6 +27,5 @@ export class CanvasService {
       ctx.font = '12px Arial';
     }
     ctx.fillText(text, 0, 0);
-    console.log('service here');
   }
 }
