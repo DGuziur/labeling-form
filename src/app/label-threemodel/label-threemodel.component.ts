@@ -74,10 +74,9 @@ export class LabelThreemodelComponent {
 
   async generateTextTexture(): Promise<THREE.Texture> {
     const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    if (!canvas || !ctx) throw new Error('Canvas is not available');
+    if (!canvas) throw new Error('Canvas is not available');
     await this.canvasService.drawText(
-      ctx,
+      canvas,
       this.config.displayedText,
       'horizontal'
     );

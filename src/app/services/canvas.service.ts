@@ -7,10 +7,11 @@ export class CanvasService {
   canvasRef = signal<HTMLCanvasElement>(document.createElement('canvas'));
 
   drawText(
-    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
     text: string,
     position: 'horizontal' | 'vertical'
   ) {
+    const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Canvas context is not available');
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -27,5 +28,6 @@ export class CanvasService {
       ctx.font = '12px Arial';
     }
     ctx.fillText(text, 0, 0);
+    console.log(canvas);
   }
 }
