@@ -40,13 +40,7 @@ export class LabelThreemodelComponent {
     marginRow: 1,
     displayedText: 'SDA@AD',
   };
-  texture!: THREE.Texture;
-
-  constructor() {
-    this.generateTextTexture().then(
-      (texture: THREE.Texture) => (this.texture = texture)
-    );
-  }
+  texture: THREE.Texture = this.generateTextTexture();
 
   readonly rowArray = new Array(this.config.rowElementsCount).fill(0);
   readonly columnArray = new Array(this.config.rowElementsCount).fill(0);
@@ -72,14 +66,28 @@ export class LabelThreemodelComponent {
     return leftLine + columnGap + columnGap * index;
   }
 
-  async generateTextTexture(): Promise<THREE.Texture> {
+  generateTextTexture(
+    position: 'vertical' | 'horizontal' = 'horizontal'
+  ): THREE.Texture {
     const canvas = document.createElement('canvas');
     if (!canvas) throw new Error('Canvas is not available');
-    await this.canvasService.drawText(
-      canvas,
-      this.config.displayedText,
-      'horizontal'
-    );
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Canvas context is not available');
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+
+    ctx.fillStyle = 'red';
+    ctx.font = '32px Arial';
+    if (position === 'vertical') {
+      ctx.rotate(Math.PI / 2);
+    }
+    if (ctx.measureText(this.config.displayedText).width > ctx.canvas.width) {
+      ctx.font = '12px Arial';
+    }
+    ctx.fillText(this.config.displayedText, 0, 0);
     const threeCanvas = new THREE.CanvasTexture(canvas);
     if (this.texture) {
       this.texture.dispose();
